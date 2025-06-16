@@ -160,12 +160,11 @@ class OCR_Translator(QMainWindow):
             # bounding box and label
             pts = np.array(bbox, dtype=np.int32)
             cv2.polylines(frame, [pts], isClosed=True, color=(0, 255, 0), thickness=1)
-            # write a text on the video frame - optional
             recognized_text += text + "\n" # for broken boxes
-        # clean up field
+        # clean up fields
         self.text_field1.clear()
         self.text_field2.clear()
-        # here we can check available entries which are in the text buffer - or display the full buffer
+        # here we can check available entries which are in the buffer
         self.text_field1.append(recognized_text.strip()) # text brut
         return frame
 
@@ -195,7 +194,7 @@ class OCR_Translator(QMainWindow):
         else:
             self.timer.stop()
             self.start_stop_button.setText(start_feeding)
-            # catch the frame and translate the text to English language
+            # catch the frame and translate the Russian text to English language
             translation = GoogleTranslator(source='ru', target='en').translate(recognized_text)
             self.text_field2.append(translation) # translated text
     # invert boolean for image filter
